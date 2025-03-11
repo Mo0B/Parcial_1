@@ -22,6 +22,7 @@ public class Main {
         _cabina.add(cabina3);
          */
         String _rojo = "\u001B[31m"; // cambiar color segun la terminal, en este caso rojo
+        String _rosado = "\u001B[35m";
         String _predeterminado = "\u001B[0m";
         do {
             System.out.println("═════════════════════════════════════════════");
@@ -34,20 +35,23 @@ public class Main {
             System.out.printf("%-5s %s%n", "5.", "Reiniciar Cabinas");
             System.out.printf("%-5s %s%n", "0.", "Salir");
             System.out.println("═════════════════════════════════════════════");
-            System.out.printf("Digite Opcion: ");
+            System.out.printf(_rojo+"Digite Opcion: "+_predeterminado);
             _opa = _teclado.nextInt();
             switch (_opa){
                 case 1 -> {
                     int id = 1 + _cabina.size();
-                    System.out.println("Cabina Telefonica Creada con Exito");
+                    System.out.println(_rosado+"Cabina Telefonica Creada con Exito"+_predeterminado);
                     _cabina.add( new Cabina_Telefonica(id));
                 }
                 case 2 -> {
                     if (_cabina.size() > 0){
-                        System.out.println("Cabinas telefonicas");
+                        System.out.println("═════════════════════════════════════════════");
+                        System.out.println("          Cabinas telefonicas");
+                        System.out.println("═════════════════════════════════════════════");
                         for (int i = 0; i<_cabina.size(); i++){
                             System.out.println("Cabina Telefonica: #"+_cabina.get(i).getId_llamada());
                         }
+                        System.out.printf(_rojo+"Digite Opcion: "+_predeterminado);
                         int _opcion = _teclado.nextInt();
                         if (_opcion <= _cabina.size()){
                             _opcion = _opcion - 1;
@@ -58,20 +62,21 @@ public class Main {
                             2. A Distancia
                             3. Por Celular
                             """);
+                            System.out.printf(_rojo+"Digite Opcion: "+_predeterminado);
                             int _opcionB = _teclado.nextInt();
                             if (_opcionB <= 3){
                                 _cabina.get(_opcion).Llamadas(_opcionB);
 
                                 System.out.println("Cabina Telefonica: #"+(_opcion+1));
-                                System.out.println(_cabina.get(_opcion).InformacionIndividual(_opcionB));
+                                System.out.println(_rosado+  _cabina.get(_opcion).InformacionIndividual(_opcionB) + _predeterminado);
                                 _teclado.nextLine();
                                 String aceptar = _teclado.nextLine();
                             }else {
-                                System.out.println("Error: Fuera de rango");
+                                System.out.println(_rojo+ "Error: Fuera de Rango" + _predeterminado);
                             }
 
                         } else {
-                            System.out.println("Error: Fuera de rango");
+                            System.out.println(_rojo+ "Error: Fuera de Rango" + _predeterminado);
                         }
 
                     } else {
@@ -80,7 +85,9 @@ public class Main {
 
                 }
                 case 3 -> {
-                    System.out.println("Informacion");
+                    System.out.println("═════════════════════════════════════════════");
+                    System.out.println("              Informacion");
+                    System.out.println("═════════════════════════════════════════════");
                     for (int i = 0; i<_cabina.size(); i++){
                         System.out.println("\n° Cabina Telefonica: #"+_cabina.get(i).getId_llamada());
                         System.out.println(_cabina.get(i).Informacion());
@@ -89,18 +96,26 @@ public class Main {
                     String aceptar = _teclado.nextLine();
                 }
                 case 4 -> {
-                    System.out.println("Consolidado");
+                    System.out.println("═════════════════════════════════════════════");
+                    System.out.println("              Consolidado");
+                    System.out.println("═════════════════════════════════════════════");
                     for (int i = 0; i<_cabina.size(); i++){
-                        System.out.println("Cabina Telefonica: #"+_cabina.get(i).getId_llamada());
+                        System.out.println(_rosado+ "Cabina Telefonica: #"+_cabina.get(i).getId_llamada());
                         System.out.println(_cabina.get(i).Consolidado());
+                        System.out.println("═════════════════════════════════════════════"+_predeterminado);
                     }
                     _teclado.nextLine();
                     String aceptar = _teclado.nextLine();
                 }
                 case 5 -> {
-                    System.out.println("REINICIAR");
+                    if (_cabina.size() > 0){
+
+                    }
+                    System.out.println("═════════════════════════════════════════════");
+                    System.out.println("       Reiniciar Cabinas Telefonicas");
+                    System.out.println("═════════════════════════════════════════════");
                     for (int i = 0; i<_cabina.size(); i++){
-                        System.out.println("Cabina Telefonica: #"+_cabina.get(i).getId_llamada()+" Borrando");
+                        System.out.println("Cabina Telefonica: #"+_cabina.get(i).getId_llamada()+_rojo+ " Borrando"+_predeterminado);
                         _cabina.get(i).ReiniciarTodo();
                     }
                 }
