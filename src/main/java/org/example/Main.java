@@ -1,17 +1,112 @@
 package org.example;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            System.out.println("i = " + i);
-        }
+        Scanner _teclado = new Scanner(System.in);
+        int _opa;
+        List<Cabina_Telefonica> _cabina = new ArrayList<>();
+
+        /*
+        Cabina_Telefonica cabina1 = new Cabina_Telefonica(1);
+        Cabina_Telefonica cabina2 = new Cabina_Telefonica(2);
+        Cabina_Telefonica cabina3 = new Cabina_Telefonica(3);
+        _cabina.add(cabina1);
+        _cabina.add(cabina2);
+        _cabina.add(cabina3);
+         */
+        String _rojo = "\u001B[31m"; // cambiar color segun la terminal, en este caso rojo
+        String _predeterminado = "\u001B[0m";
+        do {
+            System.out.println("═════════════════════════════════════════════");
+            System.out.println("||          CABINAS TELEFONICAS          ||");
+            System.out.println("═════════════════════════════════════════════");
+            System.out.printf("%-5s %s%n", "1.", "Crear una cabina telefonica");
+            System.out.printf("%-5s %s%n", "2.", "Cabina Telefonica");
+            System.out.printf("%-5s %s%n", "3.", "Informacion Cabinas telefonicas");
+            System.out.printf("%-5s %s%n", "4.", "Consolidado");
+            System.out.printf("%-5s %s%n", "5.", "Reiniciar Cabinas");
+            System.out.printf("%-5s %s%n", "0.", "Salir");
+            System.out.println("═════════════════════════════════════════════");
+            System.out.printf("Digite Opcion: ");
+            _opa = _teclado.nextInt();
+            switch (_opa){
+                case 1 -> {
+                    int id = 1 + _cabina.size();
+                    System.out.println("Cabina Telefonica Creada con Exito");
+                    _cabina.add( new Cabina_Telefonica(id));
+                }
+                case 2 -> {
+                    if (_cabina.size() > 0){
+                        System.out.println("Cabinas telefonicas");
+                        for (int i = 0; i<_cabina.size(); i++){
+                            System.out.println("Cabina Telefonica: #"+_cabina.get(i).getId_llamada());
+                        }
+                        int _opcion = _teclado.nextInt();
+                        if (_opcion <= _cabina.size()){
+                            _opcion = _opcion - 1;
+                            System.out.println("Cabina Telefonica: #"+ _cabina.get(_opcion).getId_llamada());
+
+                            System.out.println("""
+                            1. Local
+                            2. A Distancia
+                            3. Por Celular
+                            """);
+                            int _opcionB = _teclado.nextInt();
+                            if (_opcionB <= 3){
+                                _cabina.get(_opcion).Llamadas(_opcionB);
+
+                                System.out.println("Cabina Telefonica: #"+(_opcion+1));
+                                System.out.println(_cabina.get(_opcion).InformacionIndividual(_opcionB));
+                                _teclado.nextLine();
+                                String aceptar = _teclado.nextLine();
+                            }else {
+                                System.out.println("Error: Fuera de rango");
+                            }
+
+                        } else {
+                            System.out.println("Error: Fuera de rango");
+                        }
+
+                    } else {
+                        System.out.println("No hay Cabinas Telefonicas Registridas");
+                    }
+
+                }
+                case 3 -> {
+                    System.out.println("Informacion");
+                    for (int i = 0; i<_cabina.size(); i++){
+                        System.out.println("\n° Cabina Telefonica: #"+_cabina.get(i).getId_llamada());
+                        System.out.println(_cabina.get(i).Informacion());
+                    }
+                    _teclado.nextLine();
+                    String aceptar = _teclado.nextLine();
+                }
+                case 4 -> {
+                    System.out.println("Consolidado");
+                    for (int i = 0; i<_cabina.size(); i++){
+                        System.out.println("Cabina Telefonica: #"+_cabina.get(i).getId_llamada());
+                        System.out.println(_cabina.get(i).Consolidado());
+                    }
+                    _teclado.nextLine();
+                    String aceptar = _teclado.nextLine();
+                }
+                case 5 -> {
+                    System.out.println("REINICIAR");
+                    for (int i = 0; i<_cabina.size(); i++){
+                        System.out.println("Cabina Telefonica: #"+_cabina.get(i).getId_llamada()+" Borrando");
+                        _cabina.get(i).ReiniciarTodo();
+                    }
+                }
+                default -> System.out.println("Saliendo ...");
+            }
+        }while (_opa != 0);
+
     }
 }
